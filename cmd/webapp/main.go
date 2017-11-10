@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 
@@ -178,5 +179,6 @@ func main() {
 	http.HandleFunc("/exchange/average/", averageHandler)
 	http.HandleFunc("/exchange/evaluationtrigger/", evaluationHandler)
 
-	http.ListenAndServe("127.0.0.1:8080", nil) // Keep serving all requests that is recieved.
+	port := os.Getenv("PORT")
+	http.ListenAndServe(":"+port, nil) // Keep serving all requests that is recieved.
 }
