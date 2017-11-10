@@ -4,29 +4,11 @@ import (
 	"testing"
 )
 
-//testDBURL holds the url to the datebase.
-const HooksTestCollectionURL = "0.0.0.0:27017"
-
-//testDBDatabaseName holds the name of the database.
-const HooksTestCollectionDatabaseName = "local"
-
-//testDBCollectionName holds the name of the collection.
-const HooksTestCollectionCollectionName = "Testwebhooks"
-
-//CurrenciesCollectionURL holds the url to the datebase.
-const CurrenciesTestCollectionURL = "0.0.0.0:27017"
-
-//CurrenciesCollectionDatabaseName holds the name of the database.
-const CurrenciesTestCollectionDatabaseName = "local"
-
-//CurrenciesCollectionDatabaseName holds the name of the database.
-const CurrenciesTestCollectionCollectionName = "Testcurrencies"
-
 func TestCountEntries(t *testing.T) {
 
 	var testDB = new(MongoDB)
-	testDB.DatabaseURL = HooksTestCollectionURL
-	testDB.DatabaseName = HooksTestCollectionDatabaseName
+	testDB.DatabaseURL = MongoDatabaseURL
+	testDB.DatabaseName = MongoCollectionDatabaseName
 	testDB.CollectionName = HooksTestCollectionCollectionName
 	testDB.Init()
 
@@ -45,8 +27,8 @@ func TestCountEntries(t *testing.T) {
 func TestAddHook(t *testing.T) {
 
 	var testDB = new(MongoDB)
-	testDB.DatabaseURL = HooksTestCollectionURL
-	testDB.DatabaseName = HooksTestCollectionDatabaseName
+	testDB.DatabaseURL = MongoDatabaseURL
+	testDB.DatabaseName = MongoCollectionDatabaseName
 	testDB.CollectionName = HooksTestCollectionCollectionName
 	testDB.Init()
 
@@ -76,8 +58,8 @@ func TestAddHook(t *testing.T) {
 
 func TestDropCollection(t *testing.T) {
 	var testDB = new(MongoDB)
-	testDB.DatabaseURL = HooksTestCollectionURL
-	testDB.DatabaseName = HooksTestCollectionDatabaseName
+	testDB.DatabaseURL = MongoDatabaseURL
+	testDB.DatabaseName = MongoCollectionDatabaseName
 	testDB.CollectionName = HooksTestCollectionCollectionName
 	testDB.Init()
 
@@ -98,8 +80,8 @@ func TestDropCollection(t *testing.T) {
 func TestAddCurrency(t *testing.T) {
 
 	var testDB = new(MongoDB)
-	testDB.DatabaseURL = CurrenciesTestCollectionURL
-	testDB.DatabaseName = CurrenciesTestCollectionDatabaseName
+	testDB.DatabaseURL = MongoDatabaseURL
+	testDB.DatabaseName = MongoCollectionDatabaseName
 	testDB.CollectionName = CurrenciesTestCollectionCollectionName
 	testDB.Init()
 
@@ -122,8 +104,8 @@ func TestAddCurrency(t *testing.T) {
 func TestGetCurrencyEntry(t *testing.T) {
 
 	var testDB = new(MongoDB)
-	testDB.DatabaseURL = CurrenciesTestCollectionURL
-	testDB.DatabaseName = CurrenciesTestCollectionDatabaseName
+	testDB.DatabaseURL = MongoDatabaseURL
+	testDB.DatabaseName = MongoCollectionDatabaseName
 	testDB.CollectionName = CurrenciesTestCollectionCollectionName
 	testDB.Init()
 
@@ -153,8 +135,8 @@ func TestGetCurrencyEntry(t *testing.T) {
 func TestGetWebhookEntry(t *testing.T) {
 
 	var testDB = new(MongoDB)
-	testDB.DatabaseURL = HooksTestCollectionURL
-	testDB.DatabaseName = HooksTestCollectionDatabaseName
+	testDB.DatabaseURL = MongoDatabaseURL
+	testDB.DatabaseName = MongoCollectionDatabaseName
 	testDB.CollectionName = HooksTestCollectionCollectionName
 	testDB.Init()
 
@@ -183,8 +165,8 @@ func TestGetWebhookEntry(t *testing.T) {
 func TestGetAllWebhookEntries(t *testing.T) {
 
 	var testDB = new(MongoDB)
-	testDB.DatabaseURL = HooksTestCollectionURL
-	testDB.DatabaseName = HooksTestCollectionDatabaseName
+	testDB.DatabaseURL = MongoDatabaseURL
+	testDB.DatabaseName = MongoCollectionDatabaseName
 	testDB.CollectionName = HooksTestCollectionCollectionName
 	testDB.Init()
 
@@ -216,8 +198,8 @@ func TestGetAllWebhookEntries(t *testing.T) {
 func TestGetAllCurrencyEntries(t *testing.T) {
 
 	var testDB = new(MongoDB)
-	testDB.DatabaseURL = CurrenciesTestCollectionURL
-	testDB.DatabaseName = CurrenciesTestCollectionDatabaseName
+	testDB.DatabaseURL = MongoDatabaseURL
+	testDB.DatabaseName = MongoCollectionDatabaseName
 	testDB.CollectionName = CurrenciesTestCollectionCollectionName
 	testDB.Init()
 
@@ -251,8 +233,8 @@ func TestGetAllCurrencyEntries(t *testing.T) {
 func TestDeleteWebhook(t *testing.T) {
 
 	var testDB = new(MongoDB)
-	testDB.DatabaseURL = HooksTestCollectionURL
-	testDB.DatabaseName = HooksTestCollectionDatabaseName
+	testDB.DatabaseURL = MongoDatabaseURL
+	testDB.DatabaseName = MongoCollectionDatabaseName
 	testDB.CollectionName = HooksTestCollectionCollectionName
 	testDB.Init()
 

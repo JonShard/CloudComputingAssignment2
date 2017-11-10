@@ -8,23 +8,23 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-//HooksCollectionURL holds the url to the datebase.
-const HooksCollectionURL = "0.0.0.0:27017"
+//HooksCollectionURL holds the url to the datebase. // Should be in an env file for better securiry.
+const MongoDatabaseURL = "mongodb://dummy:A6MAqHa5dGt8@ds257245.mlab.com:57245/cloudassignment2"
 
 //HooksCollectionDatabaseName holds the name of the database.
-const HooksCollectionDatabaseName = "local"
+const MongoCollectionDatabaseName = "cloudassignment2"
 
 //HooksCollectionCollectionName holds the name of the collection.
 const HooksCollectionCollectionName = "webhooks"
 
-//CurrenciesCollectionURL holds the url to the datebase.
-const CurrenciesCollectionURL = "0.0.0.0:27017"
-
-//CurrenciesCollectionDatabaseName holds the name of the database.
-const CurrenciesCollectionDatabaseName = "local"
-
 //CurrenciesCollectionDatabaseName holds the name of the database.
 const CurrenciesCollectionCollectionName = "currencies"
+
+//testDBCollectionName holds the name of the collection.
+const HooksTestCollectionCollectionName = "Testwebhooks"
+
+//CurrenciesCollectionDatabaseName holds the name of the database.
+const CurrenciesTestCollectionCollectionName = "Testcurrencies"
 
 // MongoDB contains the information required to access a collection.
 type MongoDB struct {

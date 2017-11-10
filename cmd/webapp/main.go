@@ -28,8 +28,8 @@ func ExtractID(URL string) (int, error) {
 func webhookHandler(w http.ResponseWriter, r *http.Request) {
 
 	var hooksCollection = new(mongodb.MongoDB)
-	hooksCollection.DatabaseURL = mongodb.HooksCollectionURL
-	hooksCollection.DatabaseName = mongodb.HooksCollectionDatabaseName
+	hooksCollection.DatabaseURL = mongodb.MongoDatabaseURL
+	hooksCollection.DatabaseName = mongodb.MongoCollectionDatabaseName
 	hooksCollection.CollectionName = mongodb.HooksCollectionCollectionName
 	hooksCollection.Init()
 
@@ -135,8 +135,8 @@ func averageHandler(w http.ResponseWriter, r *http.Request) {
 	target := inputInterface["targetCurrency"].(string)
 
 	var currenciesCollection = new(mongodb.MongoDB)
-	currenciesCollection.DatabaseURL = mongodb.CurrenciesCollectionURL
-	currenciesCollection.DatabaseName = mongodb.CurrenciesCollectionDatabaseName
+	currenciesCollection.DatabaseURL = mongodb.MongoDatabaseURL
+	currenciesCollection.DatabaseName = mongodb.MongoCollectionDatabaseName
 	currenciesCollection.CollectionName = mongodb.CurrenciesCollectionCollectionName
 	currenciesCollection.Init()
 

@@ -15,8 +15,8 @@ import (
 func InvokeAllHooks() {
 
 	var hooksCollection = new(mongodb.MongoDB)
-	hooksCollection.DatabaseURL = mongodb.HooksCollectionURL
-	hooksCollection.DatabaseName = mongodb.HooksCollectionDatabaseName
+	hooksCollection.DatabaseURL = mongodb.MongoDatabaseURL
+	hooksCollection.DatabaseName = mongodb.MongoCollectionDatabaseName
 	hooksCollection.CollectionName = mongodb.HooksCollectionCollectionName
 	hooksCollection.Init()
 
@@ -61,8 +61,8 @@ func InvokeAllHooks() {
 func StoreCurrencies(base string) {
 
 	var currenciesCollection = new(mongodb.MongoDB)
-	currenciesCollection.DatabaseURL = mongodb.CurrenciesCollectionURL
-	currenciesCollection.DatabaseName = mongodb.CurrenciesCollectionDatabaseName
+	currenciesCollection.DatabaseURL = mongodb.MongoDatabaseURL
+	currenciesCollection.DatabaseName = mongodb.MongoCollectionDatabaseName
 	currenciesCollection.CollectionName = mongodb.CurrenciesCollectionCollectionName
 	currenciesCollection.Init()
 
@@ -85,8 +85,8 @@ func GetLatestCurrency(base string, target string) float64 {
 	}
 
 	var currenciesCollection = new(mongodb.MongoDB)
-	currenciesCollection.DatabaseURL = mongodb.CurrenciesCollectionURL
-	currenciesCollection.DatabaseName = mongodb.CurrenciesCollectionDatabaseName
+	currenciesCollection.DatabaseURL = mongodb.MongoDatabaseURL
+	currenciesCollection.DatabaseName = mongodb.MongoCollectionDatabaseName
 	currenciesCollection.CollectionName = mongodb.CurrenciesCollectionCollectionName
 	currenciesCollection.Init()
 
