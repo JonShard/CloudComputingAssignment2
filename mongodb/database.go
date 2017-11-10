@@ -78,21 +78,29 @@ func (db *MongoDB) Init() {
 	}
 	defer session.Close()
 
-	if db.DatabaseName == "webhooks" {
-		var index mgo.Index
+	var index mgo.Index
+	if db.CollectionName == "webhooks" || db.CollectionName == "Testwebhooks" {
 
 		index = mgo.Index{ //Constrains the collection to only have one entry with same ID.
-			Key:        []string{"hookID"},
+			Key:        []string{"hookid"},
 			Unique:     true,
 			DropDups:   true,
 			Background: true,
 			Sparse:     true,
 		}
 
-		err = session.DB(db.DatabaseName).C(db.CollectionName).EnsureIndex(index)
-		if err != nil {
-			panic(err)
+	} else if db.CollectionName == "currencies" || db.CollectionName == "Testcurrencies" {
+		index = mgo.Index{ //Constrains the collection to only have one entry with same ID.
+			Key:        []string{"date"},
+			Unique:     true,
+			DropDups:   true,
+			Background: true,
+			Sparse:     true,
 		}
+	}
+	err = session.DB(db.DatabaseName).C(db.CollectionName).EnsureIndex(index)
+	if err != nil {
+		panic(err)
 	}
 
 }
@@ -106,12 +114,7 @@ func (db *MongoDB) AddHook(h WebhookEntry) error {
 
 	err = session.DB(db.DatabaseName).C(db.CollectionName).Insert(h)
 
-	if err != nil {
-		fmt.Printf("error in Insert(): %v", err.Error())
-		return err
-	}
-
-	return nil
+	return err
 }
 
 func (db *MongoDB) AddCurrency(c CurrencyEntry) error {
@@ -123,12 +126,7 @@ func (db *MongoDB) AddCurrency(c CurrencyEntry) error {
 
 	err = session.DB(db.DatabaseName).C(db.CollectionName).Insert(c)
 
-	if err != nil {
-		fmt.Printf("error in Insert(): %v", err.Error())
-		return err
-	}
-
-	return nil
+	return err
 }
 
 func (db *MongoDB) CountEntries() int {
@@ -231,14 +229,13 @@ func (db *MongoDB) DeleteWebhook(id int) error {
 	err = session.DB(db.DatabaseName).C(db.CollectionName).Remove(bson.M{"hookid": id})
 
 	if err != nil {
-		fmt.Printf("error in Remove(): %v", err.Error())
 		return err
 	}
 
 	return nil
 }
 
-func (db *MongoDB) DropWebhook() {
+func (db *MongoDB) DropCollection() {
 
 	session, err := mgo.Dial(db.DatabaseURL)
 	if err != nil {
@@ -246,6 +243,6 @@ func (db *MongoDB) DropWebhook() {
 	}
 	defer session.Close()
 
-	session.DB(db.DatabaseName).C(db.CollectionName).RemoveAll()
+	session.DB(db.DatabaseName).C(db.CollectionName).RemoveAll(nil)
 
 }

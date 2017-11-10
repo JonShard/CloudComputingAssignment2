@@ -59,16 +59,6 @@ func InvokeAllHooks() {
 
 //StoreCurrencies gets the currencies from fixer.io, and stores them in the db.
 func StoreCurrencies(base string) {
-	var entry mongodb.CurrencyEntry
-
-	site := "http://api.fixer.io/latest?base="
-
-	currencyResponce, err := http.Get(site + base) //Get the http responce from fixer.
-	if err != nil {
-		return
-	}
-
-	json.NewDecoder(currencyResponce.Body).Decode(&entry) //Decode json into map.
 
 	var currenciesCollection = new(mongodb.MongoDB)
 	currenciesCollection.DatabaseURL = mongodb.CurrenciesCollectionURL
@@ -76,6 +66,11 @@ func StoreCurrencies(base string) {
 	currenciesCollection.CollectionName = mongodb.CurrenciesCollectionCollectionName
 	currenciesCollection.Init()
 
+	entry, err := GetFixerEntry(base)
+	if err != nil {
+
+		fmt.Println("Failed to get entry from Fixer.io")
+	}
 	currenciesCollection.AddCurrency(entry)
 
 	fmt.Println("Well, it runs.(store)")
@@ -121,4 +116,20 @@ func GetLatestCurrency(base string, target string) float64 {
 		return targetValue
 	}
 	return -1
+}
+
+//GetFixerEntry gets the latest entry from fixer.io and returns it. Error if fails.
+func GetFixerEntry(base string) (mongodb.CurrencyEntry, error) {
+
+	var entry mongodb.CurrencyEntry
+
+	site := "http://api.fixer.io/latest?base="
+
+	currencyResponce, err := http.Get(site + base) //Get the http responce from fixer.
+	if err != nil {
+		return entry, err
+	}
+
+	json.NewDecoder(currencyResponce.Body).Decode(&entry) //Decode json into map.
+	return entry, err
 }
