@@ -74,6 +74,27 @@ func TestAddHook(t *testing.T) {
 	testDB.DropCollection() //Must be in the last function in the test. Tears down the testDB for next time.
 }
 
+func TestDropCollection(t *testing.T) {
+	var testDB = new(MongoDB)
+	testDB.DatabaseURL = HooksTestCollectionURL
+	testDB.DatabaseName = HooksTestCollectionDatabaseName
+	testDB.CollectionName = HooksTestCollectionCollectionName
+	testDB.Init()
+
+	for i := 1; i <= 5; i++ {
+		testEntry := createTestHook(i)
+		testDB.AddHook(testEntry)
+	}
+
+	beforeCount := testDB.CountEntries()
+	testDB.DropCollection()
+	afterCount := testDB.CountEntries()
+
+	if afterCount != 0 {
+		t.Error("Failed to delete all webhook entries from testDB.\n\tcount before was", beforeCount, ", after delete should had been 0\n\tIt is ", afterCount)
+	}
+}
+
 func TestAddCurrency(t *testing.T) {
 
 	var testDB = new(MongoDB)

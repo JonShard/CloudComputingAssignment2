@@ -98,12 +98,10 @@ func GetLatestCurrency(base string, target string) float64 {
 	parts = strings.Split(localTime, " ")
 	localTime = parts[0]
 
-	entry, succeeded = currenciesCollection.GetCurrencyEntry(string(localTime))
-	if !succeeded {
-		//error
-		fmt.Println("Failed to get currencyEntry(", localTime, "): base=", base, " target=", target, "\nNo entries for that date.")
+	fmt.Println("API: ", localTime)
 
-	} else {
+	entry, succeeded = currenciesCollection.GetCurrencyEntry(string(localTime))
+	if succeeded {
 
 		var targetValue float64
 		if base == "EUR" {

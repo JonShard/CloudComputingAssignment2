@@ -116,7 +116,7 @@ func latestHandler(w http.ResponseWriter, r *http.Request) {
 	latest := api_hooks.GetLatestCurrency(base, target)
 	if latest == -1 {
 
-		fmt.Fprintf(w, http.StatusText(500))
+		fmt.Fprintln(w, http.StatusText(500), ": No entries for that date.")
 
 	} else {
 
