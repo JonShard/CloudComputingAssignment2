@@ -187,5 +187,5 @@ func main() {
 	http.HandleFunc("/exchange/evaluationtrigger/", evaluationHandler)
 
 	port := os.Getenv("PORT")
-	http.ListenAndServe("127.0.0.1:"+port, nil) // Keep serving all requests that is recieved.
+	http.ListenAndServe(":"+port, nil) // Keep serving all requests that is recieved.
 }
