@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
-	"net/url"
 	"os"
 	"strconv"
 	"strings"
@@ -40,14 +40,12 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
 		var registrationInterface map[string]interface{} //Will temporarly store the values for registration.
 		json.NewDecoder(r.Body).Decode(&registrationInterface)
 
-		url, errURL := url.ParseRequestURI(registrationInterface["webHookURL"].(string))
-		if errURL != nil {
+		if registrationInterface["webhookURL"] == nil {
 			fmt.Fprintln(w, http.StatusText(400)) //Bad request if fails.
 			return
 		}
 		var entry = new(mongodb.WebhookEntry) // Will store the values for registration.
-		entry.HookURL = url.Path
-		fmt.Println("parsed URL: ", url.Path)
+		entry.HookURL = registrationInterface["webhookURL"].(string)
 		entry.BaseCurrency = registrationInterface["baseCurrency"].(string)
 		entry.TargetCurrency = registrationInterface["targetCurrency"].(string)
 		entry.MinTriggerValue = registrationInterface["minTriggerValue"].(float64)
@@ -187,5 +185,5 @@ func main() {
 	http.HandleFunc("/exchange/evaluationtrigger/", evaluationHandler)
 
 	port := os.Getenv("PORT")
-	http.ListenAndServe(":"+port, nil) // Keep serving all requests that is recieved.
+	log.Println(http.ListenAndServe(":"+port, nil)) // Keep serving all requests that is recieved.
 }
