@@ -10,7 +10,7 @@ func main() {
 	for {
 		delay := time.Minute * 15
 		api_hooks.StoreCurrencies("EUR")
-		api_hooks.InvokeAllHooks()
+		api_hooks.InvokeAllHooks(false)
 
 		time.Sleep(delay)
 	}

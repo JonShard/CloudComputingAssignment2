@@ -174,7 +174,7 @@ func averageHandler(w http.ResponseWriter, r *http.Request) {
 
 func evaluationHandler(w http.ResponseWriter, r *http.Request) {
 
-	api_hooks.InvokeAllHooks()
+	api_hooks.InvokeAllHooks(true)
 }
 
 func main() {

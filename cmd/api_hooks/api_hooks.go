@@ -12,7 +12,7 @@ import (
 )
 
 //InvokeAllHooks Invokes all the webhooks in the database if outside.
-func InvokeAllHooks() {
+func InvokeAllHooks(bypassChecks bool) {
 
 	var hooksCollection = new(mongodb.MongoDB)
 	hooksCollection.DatabaseURL = mongodb.MongoDatabaseURL
@@ -32,7 +32,7 @@ func InvokeAllHooks() {
 			latest := GetLatestCurrency(hookEntries[i].BaseCurrency, hookEntries[i].TargetCurrency)
 			if latest != -1 {
 
-				if latest < hookEntries[i].MinTriggerValue || latest > hookEntries[i].MaxTriggerValue {
+				if bypassChecks || latest < hookEntries[i].MinTriggerValue || latest > hookEntries[i].MaxTriggerValue {
 					fmt.Println("\n\nInvoking a webhook.\nIs outside params: min=", hookEntries[i].MinTriggerValue, " max=", hookEntries[i].MaxTriggerValue, " val=", latest)
 
 					tempURL := hookEntries[i].HookURL
